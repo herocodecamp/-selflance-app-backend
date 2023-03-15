@@ -2,7 +2,6 @@ const app = require("../app");
 const multer = require("multer");
 
 const ErrorHandler = () => {
-
   // NotFound ErrorHandler
   app.use("*", (req, res, next) => {
     const err = new Error("Route Not Found");
@@ -10,15 +9,12 @@ const ErrorHandler = () => {
     next(err);
   });
 
-
   // global ErrorHandler
-
-
   app.use(async (err, req, res, next) => {
     if (err instanceof multer.MulterError) {
       res.status(500).send("There was an upload error");
     }
-  
+
     if (req.file) {
       await unlink(req.file.path);
     }
@@ -28,7 +24,6 @@ const ErrorHandler = () => {
       error: err.stack,
     });
   });
- 
 };
 
 module.exports = ErrorHandler;
