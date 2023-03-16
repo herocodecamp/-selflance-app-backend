@@ -24,6 +24,7 @@ transporter.verify((error, success) => {
 
 exports.registerUser = (req, res) => {
   let { userName, email, password } = req.query;
+  console.log(email)
   console.log(req.query)
   userName = userName.trim();
   email = email.trim();
@@ -113,11 +114,12 @@ const sendOTPVerificationEmail = async ({_id,email}, res)=>{
             userId:_id,
             otp:hashedOTP,
             createdAt:Date.now() + 3600000,
-            expiresAt:Date.now
+            expiresAt:Date.now()
 
         })
-      await  newOTPVerification.save();
-        await  transporter.sendMail(mailOptions);
+         await newOTPVerification.save();
+     const sendmail =   await transporter.sendMail(mailOptions);
+     console.log(sendmail)
         res.json({
             status:"PENDING",
             massage:"OTP sent to your email",
@@ -127,7 +129,10 @@ const sendOTPVerificationEmail = async ({_id,email}, res)=>{
             }
         })
     } catch (error) {
+        console.log(error)
         res.json({
+
+            error:error.massage,
             status:"FAILED",
             massage:"An error occurred while sending email",
             
