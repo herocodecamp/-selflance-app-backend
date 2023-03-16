@@ -1,12 +1,12 @@
 const express = require('express')
-const userRoutes = require('./users.routes')
+const userRoutes = require('./user.routes')
 const appRouter = express.Router()
 
 
 //please use this file for imports routes only
 
 // example routes
-appRouter.use('/users',userRoutes)
+appRouter.use('/user',userRoutes)
 
 
 
