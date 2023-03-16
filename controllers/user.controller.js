@@ -1,16 +1,17 @@
-// example
+
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const nodemailer = require("nodemailer");
 const UserOTPVerification = require("../models/UserOTPVerification");
+
 
 // nodemailer stuff 
 let transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-        user: 'afton19@ethereal.email',
-        pass: 'ux3cmn6ZpGWkuAKXkp'
+        user: 'lulu1@ethereal.email',
+        pass: 'BDjhT8pWRdW1jGMvPz'
     }
 })
 // testing success
@@ -21,9 +22,10 @@ transporter.verify((error, success) => {
         console.log("Server is ready to take our messages");
     }
 });
-
-exports.registerUser = (req, res) => {
+// registration user
+exports.registerUser =async (req, res) => {
   let { userName, email, password } = req.query;
+  try {
   console.log(email)
   console.log(req.query)
   userName = userName.trim();
@@ -87,6 +89,9 @@ exports.registerUser = (req, res) => {
       }
     });
   }
+  } catch (error) {
+    res.status(500).json({massage:error.massage, type:error.name})
+  }
  
 };
 
@@ -94,9 +99,9 @@ exports.registerUser = (req, res) => {
 const sendOTPVerificationEmail = async ({_id,email}, res)=>{
 
     try {
-        const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+        const otp = `${Math.floor(100000+ Math.random() * 9000)}`;
         const mailOptions = {
-            from: 'afton19@ethereal.email',
+            from: 'lulu1@ethereal.email',
             to:email,
             subject: 'Verify Your Email',
             html: `
@@ -113,8 +118,8 @@ const sendOTPVerificationEmail = async ({_id,email}, res)=>{
    const newOTPVerification =     new UserOTPVerification({
             userId:_id,
             otp:hashedOTP,
-            createdAt:Date.now() + 3600000,
-            expiresAt:Date.now()
+            createdAt:Date.now(),
+            expiresAt:Date.now() + 3600000
 
         })
          await newOTPVerification.save();
@@ -137,6 +142,59 @@ const sendOTPVerificationEmail = async ({_id,email}, res)=>{
             massage:"An error occurred while sending email",
             
         })
+    }
+
+}
+
+
+// verify otp email
+exports.verifyOTP = async(req, res) => {
+
+  let {userId, otpNumber} = req.query;
+  
+  const otp = (otpNumber)
+  try {
+    if(!userId || !otp){
+      throw Error("Empty otp details are not allowed")
+    }else{
+   const UserOTPVerificationRecords =  await UserOTPVerification.findOne({
+    userId:userId,
+      })
+      console.log(UserOTPVerificationRecords)
+      if(!UserOTPVerificationRecords){
+        throw Error("Account record doesn't exist or has been verified already. Please sign up or log in.")
+      }else{
+        // user otp record exists
+        const {expiresAt} = UserOTPVerificationRecords;
+        const hashedOTP = UserOTPVerificationRecords.otp;
+        if(expiresAt < Date.now()){
+          // user otp record has expired
+          await UserOTPVerification.deleteMany({userId});
+          throw Error("Code has expired. Please request again")
+        }else{
+       const validOTP =   bcrypt.compare(otp, hashedOTP) 
+       if(!validOTP){
+        // supplied otp is wrong
+        throw new Error ("Invalid code passed. Check your inbox")
+       }else{
+        // success
+        await User.updateOne({_id:userId}, {isVerified:true});
+        await UserOTPVerification.deleteMany({userId});
+        res.json({
+          status:'VERIFIED',
+          massage:'Your email has been verified',
+          data:{
+            userId,
+            email:UserOTPVerificationRecords.email,
+          }
+        })
+       }
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({massage:error.massage, type:error.name})
     }
 
 }
