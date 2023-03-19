@@ -13,7 +13,7 @@ const dbConnection = require('./db/dbConnection');
 dotenv.config()
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 
 // Database connection
 dbConnection()

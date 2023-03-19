@@ -1,29 +1,9 @@
 const mongoose = require("mongoose");
 const { Schema, ObjectId } = mongoose;
 
-const GigSchema = new Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  title: String,
-  category: String,
-  subCategory: String,
-  tag: [tagSchema],
-  serviceDescription: String,
-  packages: [packagesSchema],
-  gigComments: [gigCommentsSchema],
-  gigRequirement: [gigRequirementSchema],
-  gigFAQ: [gigFAQSchema],
-  images: [imagesSchema],
-  videos: [videosSchema],
-});
-
-module.exports = mongoose.model("Gig", GigSchema);
-
 // define subSchema
 
-const tagSchema = new Schema({
+const tagSchema = ({
   type: String,
   validate: {
     validator: (v, x, z) => {
@@ -57,7 +37,7 @@ const gigCommentsSchema = new Schema({
   rating: String,
 });
 
-const gigFAQSchema = new Schema({ que: string, ans: string });
+const gigFAQSchema = new Schema({ que: String, ans: String });
 
 const imagesSchema = new Schema({
 //   _id: ObjectId,
@@ -70,4 +50,27 @@ const videosSchema = new Schema({
 });
 
 
-const gigRequirementSchema = new Schema({ que: string, ans: string })
+const gigRequirementSchema = new Schema({ que: String, ans: String })
+
+
+
+const GigSchema = new Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  title: String,
+  category: String,
+  subCategory: String,
+  tag: [tagSchema],
+  serviceDescription: String,
+  packages: [packagesSchema],
+  // gigComments: [gigCommentsSchema],
+  gigRequirement: [gigRequirementSchema],
+  gigFAQ: [gigFAQSchema],
+  images: [imagesSchema],
+  videos: [videosSchema],
+});
+
+module.exports = mongoose.model("Gig", GigSchema);
+
