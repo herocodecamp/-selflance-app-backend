@@ -1,5 +1,7 @@
-const app = require("../app");
+var app = require("../app");
+
 const multer = require("multer");
+
 
 const ErrorHandler = () => {
   // NotFound ErrorHandler

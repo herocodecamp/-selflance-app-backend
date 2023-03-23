@@ -6,7 +6,11 @@ const gigRoutes = express.Router();
 
 // example
 // gigRoutes.get('/',createExample)
-gigRoutes.get('/create',postGig)
+gigRoutes.post('/create',postGig)
+
+gigRoutes.get('/',(req,res)=>{
+    res.json({messsage: "Hello World"})
+})
 
 
 

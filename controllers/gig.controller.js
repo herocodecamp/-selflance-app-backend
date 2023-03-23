@@ -2,11 +2,13 @@ const Gig = require("../models/Gig");
 
 exports.postGig= async(req,res)=>{
    
-    console.log(req.query)
+    console.log(req.body)
     // console.log(req)
     console.log(req.hasOwnProperty('body'))
 
     try {
+
+        res.json({...req.body})
         // const createGig = await Gig.create({...req.query})
         // console.log(createGig)
         // res.json(createGig)
@@ -16,3 +18,4 @@ exports.postGig= async(req,res)=>{
     }
 
 }
+
