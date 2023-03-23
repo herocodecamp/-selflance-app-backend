@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const dbConnection = () => {
   mongoose
     .connect(
-      `mongodb://localhost:8000/`
+      `${process.env.DB_URL}`
       // ,
       // {
       //   useNewUrlParser: true,
