@@ -1,10 +1,10 @@
 const express = require('express');
-const { createExample, registerUser, verifyOTP } = require('../controllers/user.controller');
+const { createExample, registerUser, verifyOTP,readAllUsers } = require('../controllers/user.controller');
 const userRoutes = express.Router();
 
 
 // example
-// userRoutes.get('/',createExample)
+userRoutes.get('/',readAllUsers)
 userRoutes.post('/signup',registerUser)
 userRoutes.post('/verifyOTP',verifyOTP)
 

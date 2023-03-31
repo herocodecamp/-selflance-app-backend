@@ -7,8 +7,11 @@ const UserSchema = new Schema({
     password: String,
     isSeller:Boolean,
     isVerified:Boolean,
-   
-  });
+  },
+  {
+    timestamps: true,
+  }
+);
 
 
   module.exports = mongoose.model('User', UserSchema);

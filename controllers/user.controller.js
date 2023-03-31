@@ -1,25 +1,25 @@
 const bcrypt = require("bcrypt");
-const User = require("../models/User");
+const Users = require("../models/User");
 const nodemailer = require("nodemailer");
 const UserOTPVerification = require("../models/UserOTPVerification");
 
 // nodemailer stuff
-let transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
-  auth: {
-    user: "deontae2@ethereal.email",
-    pass: "wzDcEx83fsHE21Qkqz",
-  },
-});
+// let transporter = nodemailer.createTransport({
+//   host: "smtp.ethereal.email",
+//   port: 587,
+//   auth: {
+//     user: "deontae2@ethereal.email",
+//     pass: "wzDcEx83fsHE21Qkqz",
+//   },
+// });
 // testing success
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Server is ready to take our messages");
-  }
-});
+// transporter.verify((error, success) => {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log("Server is ready to take our messages");
+//   }
+// });
 // registration user
 exports.registerUser = async (req, res) => {
   let { userName, email, password } = req.query;
@@ -191,3 +191,17 @@ exports.verifyOTP = async (req, res) => {
     res.status(500).json({ massage: error.massage, type: error.name });
   }
 };
+
+
+exports.readAllUsers=async(req,res)=>{
+      try{
+          Users.find({}).then((result)=>{
+              // if(err){res.status(500).json({ massage: err.massage, type: err.name })}
+              res.statusCode = 200;
+              res.json(result);
+          })
+      }
+      catch(err){
+        res.status(500).json({ massage: err.massage, type: err.name });
+      }
+}
