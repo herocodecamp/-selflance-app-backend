@@ -17,7 +17,10 @@ const BlogSchema = new Schema(
       default: [],
     },
     description: {
-      text: String,
+      text: {
+        type: String,
+        default: "",
+      },
       quotes: {
         type: [{ title: String, quotes_text: String }],
         default: [],
@@ -25,8 +28,14 @@ const BlogSchema = new Schema(
       imageCards: {
         type: [
           {
-            title: String,
-            cardText: String,
+            title: {
+              type: String,
+              default: "",
+            },
+            cardText: {
+              type: String,
+              default: "",
+            },
             image: {
               type: String,
               default: "",
