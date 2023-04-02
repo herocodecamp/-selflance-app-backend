@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const AgreementSchema = new Schema(
   {
     // _id: default object id
+    userId: String,
     seller: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -14,7 +15,7 @@ const AgreementSchema = new Schema(
     },
     title: {
       type: String,
-      required: true,
+      required: [true, "title field is required"],
       minlength: 3,
       maxlength: 150,
       default: "",
@@ -27,18 +28,17 @@ const AgreementSchema = new Schema(
     },
     price: {
       type: Number,
-      required: true,
+      required: [true, "enter the price"],
       min: 1,
-      max: 10,
     },
 
     revision: Number,
     delivery_time: Number,
     extra_revision: Number,
 
-    terms_and_policy: {
+    isAgree: {
       type: Boolean,
-      required: true,
+      required: [true, "turn on the agree button"],
       default: false,
     },
   },
