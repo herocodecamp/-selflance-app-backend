@@ -1,10 +1,9 @@
-const User = require('../models/User');
 const UserDetail = require('../models/UserDetails');
 
 const readUserDetails = async(req,res)=>{
     try{
         UserDetail.findOne({user: req.params.userId}).then((result)=>{
-            // later replace user:req.user._id
+            // later replace user:req.user._id 
             // if(err) { res.status(500).json({ message: err.message, type: err.name });}
             res.statusCode = 200;
             res.json(result)

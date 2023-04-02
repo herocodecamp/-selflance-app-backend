@@ -24,7 +24,9 @@ app.use(express.json());
 dbConnection()
 
 
-
+app.get('/', (req,res)=>{
+res.send({massage:true})
+})
 
 // server listening
 app.listen(port,()=>{
