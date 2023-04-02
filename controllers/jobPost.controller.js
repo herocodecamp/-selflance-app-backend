@@ -3,7 +3,7 @@ const JobPost = require('../models/JobPost')
 
 const readJobPost= async(req,res)=>{
     try{
-        const jobPost = await JobPost.findOne({_id: req.params.postId})
+        const jobPost = await JobPost.findOne({_id: req.params.jobPostId})
         res.status(200).json(jobPost)
     }
     catch(error)
@@ -33,7 +33,7 @@ const createJobPost = async(req,res)=>{
 const updateJobPost = async(req,res)=>{
 
     try{
-            const updatedPost= await JobPost.findOneAndUpdate({_id: req.params.postId},{$set: req.body},{new: true})
+            const updatedPost= await JobPost.findOneAndUpdate({_id: req.params.jobPostId},{$set: req.body},{new: true})
             res.status(200).json(updatedPost)
     }
     catch(error)
@@ -48,7 +48,7 @@ const updateJobPost = async(req,res)=>{
 const deleteJobPost = async(req,res)=>{
 
     try{
-            await JobPost.findOneAndRemove({_id: req.params.postId})
+            await JobPost.findOneAndRemove({_id: req.params.jobPostId})
             res.status(200).json({message: "Successfully Deleted!"})
     }
     catch(error)

@@ -22,13 +22,14 @@ const UserOTPVerification = require("../models/UserOTPVerification");
 // });
 // registration user
 exports.registerUser = async (req, res) => {
-  let { userName, email, password } = req.query;
+  let { userName, email, password } = req.body;
   try {
-    console.log(email);
-    console.log(req.query);
+    
     userName = userName.trim();
     email = email.trim();
     password = password.trim();
+    console.log(email);
+    console.log(req.body);
     if (userName === "" || email === "" || password === "") {
       res.json({
         status: "FAILED",
@@ -51,7 +52,7 @@ exports.registerUser = async (req, res) => {
       });
     } else {
       // checking if user already exits
-      User.find({ email }).then((result) => {
+      Users.find({ email }).then((result) => {
         if (result.length) {
           res.json({
             status: "FAILED",
@@ -60,11 +61,11 @@ exports.registerUser = async (req, res) => {
         } else {
           const saltRounds = 10;
           bcrypt.hash(password, saltRounds).then((hashedPassword) => {
-            const newUser = new User({
+            const newUser = new Users({
               userName,
               email,
               password: hashedPassword,
-              isSeller: true,
+              isSeller: false,
               isVerified: false,
             });
             newUser
@@ -72,6 +73,8 @@ exports.registerUser = async (req, res) => {
               .then((result) => {
                 // handle account verification
                 sendOTPVerificationEmail(result, res);
+                
+                
               })
               .catch((err) => {
                 res.json({
@@ -90,7 +93,7 @@ exports.registerUser = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).json({ massage: error.massage, type: error.name });
+    res.status(500).json({ massage: error.message, type: error.name });
   }
 };
 

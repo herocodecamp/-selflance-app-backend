@@ -3,16 +3,16 @@ const {readJobPost,createJobPost,deleteJobPost,updateJobPost} = require('../cont
 
 const jobPostRoutes = express.Router();
 
-jobPostRoutes.get('/:userId/jobpost/:postId',readJobPost)
+jobPostRoutes.get('/:userId/jobpost/:jobPostId',readJobPost)
 
 
 jobPostRoutes.post('/:userId/jobpost/create',createJobPost)
 
 
-jobPostRoutes.put('/:userId/jobpost/:postId',updateJobPost)
+jobPostRoutes.put('/:userId/jobpost/:jobPostId',updateJobPost)
 
 
-jobPostRoutes.delete('/:userId/jobpost/:postId',deleteJobPost)
+jobPostRoutes.delete('/:userId/jobpost/:jobPostId',deleteJobPost)
 
 
 module.exports = jobPostRoutes;

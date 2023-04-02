@@ -8,10 +8,14 @@ var JobPostResponseSchema = new Schema({
         ref: 'JobPost'
     },
     // seller_id:,
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     price_bid: String,
     duration: String,
     start_time: String,
-    start_date: Date,
+    start_date: String,
     cover_letter: String,
     // files will be fetched form te jobpost
     
