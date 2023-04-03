@@ -215,3 +215,20 @@ exports.readAllUsers=async(req,res)=>{
         res.status(500).json({ massage: err.massage, type: err.name });
       }
 }
+
+//Login user
+
+exports.loginUser=async(req,res)=>{
+  const {email, password} = req.query;
+  try {
+    const isExist = await User.findOne({email});
+    if(isExist){
+
+    }else{
+      
+    }
+    console.log(isExist, password)
+  } catch (error) {
+    res.status(500).json({ massage: err.massage, type: err.name });
+  }
+}
