@@ -1,8 +1,8 @@
 const express = require("express");
-const {GetAgreementController, PostAgreementController } = require("../controllers/agreement.controller");
+const { PostSellerAgreementController, GetSellerAgreementController } = require("../controllers/agreement.controller");
 const Router = express.Router();
 
-Router.post('/:id', PostAgreementController);
-Router.get('/', GetAgreementController)
+Router.post('/:id', PostSellerAgreementController);
+Router.get('/', GetSellerAgreementController)
 
 module.exports = Router;

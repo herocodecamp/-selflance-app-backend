@@ -1,14 +1,13 @@
-const Agreements = require("../models/Agreement");
+const SellerAgreement = require("../models/SellerAgreement");
 const Users = require("../models/User");
 
-exports.PostAgreementController = async (req, res) => {
+exports.PostSellerAgreementController = async (req, res) => {
   const { id } = req.params;
   const user = await Users.findById(id);
-  console.log("body-data", req.body);
-  console.log("_id", user._id.toString());
+
   try {
     if (user._id.toString() === req.body.userId) {
-      const NewAgreement = new Agreements(req.body);
+      const NewAgreement = new SellerAgreements(req.body);
       await NewAgreement.save();
       res.status(200).json({ message: " successfully insert an agreement " });
     } else {
@@ -21,9 +20,9 @@ exports.PostAgreementController = async (req, res) => {
   }
 };
 
-exports.GetAgreementController = async (req, res) => {
+exports.GetSellerAgreementController = async (req, res) => {
   try {
-    const result = await Agreements.find({});
+    const result = await SellerAgreements.find({});
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ message: error.message, type: error.name });

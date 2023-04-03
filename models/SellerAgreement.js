@@ -40,7 +40,7 @@ const SellerAgreementSchema = new Schema(
       type: Number,
       required: true,
     },
-    additional_option: string,
+    additional_option: String,
 
     isAgree: {
       type: Boolean,
