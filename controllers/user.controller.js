@@ -2,27 +2,29 @@ const bcrypt = require("bcrypt");
 const Users = require("../models/User");
 const nodemailer = require("nodemailer");
 const UserOTPVerification = require("../models/UserOTPVerification");
+const User = require("../models/User");
 
 // nodemailer stuff
-// let transporter = nodemailer.createTransport({
-//   host: "smtp.ethereal.email",
-//   port: 587,
-//   auth: {
-//     user: "deontae2@ethereal.email",
-//     pass: "wzDcEx83fsHE21Qkqz",
-//   },
-// });
+let transporter = nodemailer.createTransport({
+  host: "smtp.ethereal.email",
+  port: 587,
+  auth: {
+    user: "prudence.turner40@ethereal.email",
+    pass: "cYgyhQppBJ2Np1ma4W",
+  },
+});
 // testing success
-// transporter.verify((error, success) => {
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log("Server is ready to take our messages");
-//   }
-// });
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Server is ready to take our messages");
+  }
+});
 // registration user
 exports.registerUser = async (req, res) => {
   let { userName, email, password } = req.body;
+  console.log(req.body);
   try {
     
     userName = userName.trim();
@@ -98,7 +100,7 @@ exports.registerUser = async (req, res) => {
 };
 
 // send otp verification email
-const sendOTPVerificationEmail = async ({ _id, email }, res) => {
+const sendOTPVerificationEmail = async ({ _id, email,isVerified,isSeller}, res) => {
   try {
     const otp = `${Math.floor(100000 + Math.random() * 9000)}`;
     const mailOptions = {
@@ -131,6 +133,8 @@ const sendOTPVerificationEmail = async ({ _id, email }, res) => {
       data: {
         userId: _id,
         email,
+        isSeller,
+        isVerified
       },
     });
   } catch (error) {
@@ -145,7 +149,7 @@ const sendOTPVerificationEmail = async ({ _id, email }, res) => {
 
 // verify otp email
 exports.verifyOTP = async (req, res) => {
-  let { userId, otpNumber } = req.query;
+  let { userId, otpNumber } = req.body;
 
   const otp = otpNumber;
   try {
@@ -176,11 +180,14 @@ exports.verifyOTP = async (req, res) => {
           } else {
             // success
             await User.updateOne({ _id: userId }, { isVerified: true });
+
             await UserOTPVerification.deleteMany({ userId });
+            const userDetails = await User.findOne({ _id: userId})
             res.json({
               status: "VERIFIED",
               massage: "Your email has been verified",
               data: {
+                userDetails,
                 userId,
                 email: UserOTPVerificationRecords.email,
               },
