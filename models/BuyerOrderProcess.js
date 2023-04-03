@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const OrderProcessAgreement = new Schema(
+const BuyerOrderProcessSchema = new Schema(
   {
     sellerAgreement: {
       type: mongoose.Schema.Types.ObjectId,
@@ -18,8 +18,13 @@ const OrderProcessAgreement = new Schema(
       default: [],
       required: [true, "payment method is required"],
     },
+    isAgree: {
+      type: Boolean,
+      required: [true, "turn on the agree button"],
+      default: false,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("buyerAgreement", OrderProcessAgreement);
+module.exports = mongoose.model("BuyerOrderProcess", BuyerOrderProcessSchema);

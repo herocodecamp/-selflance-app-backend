@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const SellerAgreementSchema = new Schema(
+const SellerOfferSchema  = new Schema(
   {
     // _id: default object id
     service: {
@@ -53,4 +53,4 @@ const SellerAgreementSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("sellerAgreement", SellerAgreementSchema);
+module.exports = mongoose.model("SellerOffer", SellerOfferSchema);
