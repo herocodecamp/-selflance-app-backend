@@ -26,7 +26,6 @@ exports.registerUser = async (req, res) => {
   let { userName, email, password } = req.body;
   console.log(req.body);
   try {
-    
     userName = userName.trim();
     email = email.trim();
     password = password.trim();
@@ -75,8 +74,6 @@ exports.registerUser = async (req, res) => {
               .then((result) => {
                 // handle account verification
                 sendOTPVerificationEmail(result, res);
-                
-                
               })
               .catch((err) => {
                 res.json({
@@ -100,7 +97,10 @@ exports.registerUser = async (req, res) => {
 };
 
 // send otp verification email
-const sendOTPVerificationEmail = async ({ _id, email,isVerified,isSeller}, res) => {
+const sendOTPVerificationEmail = async (
+  { _id, email, isVerified, isSeller },
+  res
+) => {
   try {
     const otp = `${Math.floor(100000 + Math.random() * 9000)}`;
     const mailOptions = {
@@ -134,7 +134,7 @@ const sendOTPVerificationEmail = async ({ _id, email,isVerified,isSeller}, res) 
         userId: _id,
         email,
         isSeller,
-        isVerified
+        isVerified,
       },
     });
   } catch (error) {
@@ -182,7 +182,7 @@ exports.verifyOTP = async (req, res) => {
             await User.updateOne({ _id: userId }, { isVerified: true });
 
             await UserOTPVerification.deleteMany({ userId });
-            const userDetails = await User.findOne({ _id: userId})
+            const userDetails = await User.findOne({ _id: userId });
             res.json({
               status: "VERIFIED",
               massage: "Your email has been verified",
@@ -202,33 +202,52 @@ exports.verifyOTP = async (req, res) => {
   }
 };
 
-
-exports.readAllUsers=async(req,res)=>{
-      try{
-          Users.find({}).then((result)=>{
-              // if(err){res.status(500).json({ massage: err.massage, type: err.name })}
-              res.statusCode = 200;
-              res.json(result);
-          })
-      }
-      catch(err){
-        res.status(500).json({ massage: err.massage, type: err.name });
-      }
-}
+exports.readAllUsers = async (req, res) => {
+  try {
+    Users.find({}).then((result) => {
+      // if(err){res.status(500).json({ massage: err.massage, type: err.name })}
+      res.statusCode = 200;
+      res.json(result);
+    });
+  } catch (err) {
+    res.status(500).json({ massage: err.massage, type: err.name });
+  }
+};
 
 //Login user
 
-exports.loginUser=async(req,res)=>{
-  const {email, password} = req.query;
+exports.loginUser = async (req, res) => {
+  const { email, password } = req.query;
   try {
-    const isExist = await User.findOne({email});
-    if(isExist){
-
-    }else{
-      
+    const isExist = await User.findOne({ email });
+    if (isExist) {
+      const hashedPassword = isExist.password;
+      const validPassword = bcrypt.compare(password, hashedPassword);
+      if (validPassword) {
+        res.json({
+          status: "SUCCESS",
+          massage: "Login success",
+          data: {
+            userId: isExist._id,
+            email: isExist.email,
+            isSeller: isExist.isSeller,
+            isVerified: isExist.isVerified,
+          },
+        });
+      } else {
+        res.json({
+          status: "FAILED",
+          massage: "Wrong password ",
+        });
+      }
+    } else {
+      res.json({
+        status: "NOT FOUND",
+        massage: "Account record doesn't exist. Please sign up ",
+      });
     }
-    console.log(isExist, password)
+    console.log(isExist, password);
   } catch (error) {
     res.status(500).json({ massage: err.massage, type: err.name });
   }
-}
+};
