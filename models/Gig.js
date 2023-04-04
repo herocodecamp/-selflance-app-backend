@@ -55,10 +55,10 @@ const gigRequirementSchema = new Schema({ que: String, ans: String })
 
 
 const GigSchema = new Schema({
-  // userId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User",
-  // },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   title: String,
   category: String,
   subCategory: String,

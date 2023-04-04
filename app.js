@@ -3,11 +3,13 @@ const app = express();
 const appRouter = require("./routes");
 const cors = require('cors');
 
-app.use(cors())
-app.use(express.json())
+// app.use(cors())
+// app.use(express.json())
+// app.set("view engine", "ejs");
+
 
 // //api version control
-app.use("/api/v1", appRouter);
+// app.use("/api/v1", appRouter);
 
 
 module.exports = app;

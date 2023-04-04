@@ -38,6 +38,12 @@ var UserDetailSchema = new Schema({
     location: String,
     about: String,
     rating: String,
+    profileImage: String,
+    // profileImage: {
+    //     data: Buffer,
+    //     contenType: String
+    // },
+    
     educatoion: [EducationSchema],
     // videoIntro: [],
     hourlyRate: String,

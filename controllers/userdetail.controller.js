@@ -1,5 +1,6 @@
 const UserDetail = require('../models/UserDetails');
 
+
 const readUserDetails = async(req,res)=>{
     try{
         UserDetail.findOne({user: req.params.userId}).then((result)=>{
@@ -19,10 +20,24 @@ const readUserDetails = async(req,res)=>{
 
 const createUserDetails = async(req,res)=>{
     
-    if(req.body){
-        req.body.user = req.params.userId
-        console.log(req.body)
+    
+
+    if(req.body || req.file){ 
+
+        
         try{
+
+            // const obj = {
+            //     img: {
+            //         data: fs.readFileSync(path.join(__dirname,"..","images", req.file.filename)),
+            //         contentType: "image/png"
+            //     }
+            // }
+            console.log(req.file.path);
+            req.body.profileImage =req.file.path
+            req.body.user = req.params.userId
+            
+
             UserDetail.create(req.body).then((result)=>{
                 res.statusCode = 200;
                 res.json(result)
@@ -41,6 +56,11 @@ const createUserDetails = async(req,res)=>{
 
 const updateUserDetails = async(req,res)=>{
     try{
+        if(req.file){
+           
+            console.log(req.file.path);
+            req.body.profileImage =req.file.path
+        }
             UserDetail.findOneAndUpdate({user: req.params.userId},{$set: req.body},{new: true}).then((result)=>{
                 // if(err) {res.status(500).json({ message: err.message, type: err.name })}
                 res.statusCode = 200;
