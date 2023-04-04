@@ -5,12 +5,12 @@ const { Schema, ObjectId } = mongoose;
 
 const tagSchema = ({
   type: String,
-  validate: {
-    validator: (v, x, z) => {
-      return !(this.tag.length > 5);
-    },
-    message: (props) => `${props.value} exceeds maximum array size (5)!`,
-  },
+  // validate: {
+  //   validator: (v, x, z) => {
+  //     return !(this.tag.length > 5);
+  //   },
+  //   message: (props) => `${props.value} exceeds maximum array size (5)!`,
+  // },
   required: true,
 });
 
@@ -62,15 +62,16 @@ const GigSchema = new Schema({
   title: String,
   category: String,
   subCategory: String,
-  tag: [tagSchema],
+  tags: [tagSchema],
   serviceDescription: String,
   packages: [packagesSchema],
   // gigComments: [gigCommentsSchema],
   gigRequirement: [gigRequirementSchema],
   gigFAQ: [gigFAQSchema],
-  images: [imagesSchema],
+  gigImages: [imagesSchema],
   videos: [videosSchema],
 });
 
-module.exports = mongoose.model("Gig", GigSchema);
+const Gig = mongoose.model("Gig", GigSchema);
 
+module.exports = Gig;

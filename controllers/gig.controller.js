@@ -1,21 +1,140 @@
 const Gig = require("../models/Gig");
 
-exports.postGig= async(req,res)=>{
-   
-    console.log(req.body)
-    // console.log(req)
-    console.log(req.hasOwnProperty('body'))
 
-    try {
 
-        res.json({...req.body})
-        // const createGig = await Gig.create({...req.query})
-        // console.log(createGig)
-        // res.json(createGig)
-      
-    } catch (error) {
-        res.status(500).json({ massage: error.massage, type: error.name });  
+const readGig =async(req,res)=>{
+    try{
+            const gigData = await Gig.findById({_id: req.params.gigId})
+            res.status(200).json(gigData)
     }
+    catch(error)
+    {
+        res.status(500).json({ message: error.massage, type: error.name }); 
+    }
+};
 
-}
+
+const createGig =async(req,res)=>{
+    try{
+            var images = []
+            if(req.files.length>0)
+            {
+                req.files.forEach(el => {
+                    images.push({url: `${el.path}`})
+                });
+            }
+
+            req.body.userId = req.params.userId
+            
+            
+            req.body.gigImages = images;
+
+            // START: Below are some methods to make the Schema work with postman...during client data we may remove them as we will be getting the required data
+            const packagesArr =[]
+            req.body.packages.forEach(el=>{
+                packagesArr.push(JSON.parse(el))
+            })
+            
+            req.body.packages = packagesArr
+
+            const gigFAQarr=[]
+            req.body.gigFAQ.forEach(el=>{
+                gigFAQarr.push(JSON.parse(el))
+            })
+            req.body.gigFAQ = gigFAQarr
+
+            const gigReq = []
+            req.body.gigRequirement.forEach(el=>{
+                gigReq.push(JSON.parse(el))
+            })
+            req.body.gigRequirement = gigReq
+
+            // END...You may remove this till there
+
+            // console.log(req.body)
+
+            const newGig = await Gig.create(req.body)
+
+            res.status(200).json(newGig)
+    }
+    catch(error)
+    {
+        res.status(500).json({ message: error.massage, type: error.name }); 
+    }
+};
+
+
+const updateGig =async(req,res)=>{
+    try{
+        var images = []
+        if(req.files.length>0)
+        {
+            req.files.forEach(el => {
+                images.push({url: `${el.path}`})
+            });
+        }    
+        req.body.gigImages = images;
+
+        // START: Below are some methods to make the Schema work with postman...during client data we may remove them as we will be getting the required data
+        const packagesArr =[]
+        if(req.body.packages.length>0)
+        {
+            req.body.packages.forEach(el=>{
+                packagesArr.push(JSON.parse(el))
+            })
+            
+            req.body.packages = packagesArr
+
+        }
+        
+        const gigFAQarr=[]
+        if(req.body.gigFAQ.length>0)
+        {
+
+            req.body.gigFAQ.forEach(el=>{
+                gigFAQarr.push(JSON.parse(el))
+            })
+            req.body.gigFAQ = gigFAQarr
+        }
+        
+        
+
+        const gigReq = []
+        if(req.body.gigRequirement.length > 0)
+        {
+            req.body.gigRequirement.forEach(el=>{
+                gigReq.push(JSON.parse(el))
+            })
+            req.body.gigRequirement = gigReq
+
+        }
+
+        console.log(req.body)  
+
+        // END...You may remove this till there
+
+        const updatedGig = await Gig.findByIdAndUpdate({_id: req.params.gigId},{$set: req.body}, {new: true})
+        res.status(200).json(updatedGig)
+    }
+    catch(error)
+    {
+        res.status(500).json({ message: error.massage, type: error.name }); 
+    }
+};
+
+
+const deleteGig =async(req,res)=>{
+    try{
+            await Gig.findOneAndRemove({_id: req.params.gigId})
+
+            res.status(200).json({message: "sccessfully removed"})
+    }
+    catch(error)
+    {
+        res.status(500).json({ message: error.massage, type: error.name }); 
+    }
+};
+
+
+module.exports = {readGig,createGig,updateGig,deleteGig}
 
