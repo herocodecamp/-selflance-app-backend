@@ -7,7 +7,7 @@ const cors = require('cors');
 
 // internal imports
 const appRouter = require("./routes");
-const app= require('./app')
+const app = require('./app')
 const ErrorHandler = require('./middleware/errorHandler');
 const dbConnection = require('./db/dbConnection');
 
@@ -23,6 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // app.use("/PrescriptionImages",express.static("./PrescriptionImages"));
 app.use("/images", express.static("./images"));
+app.use(express.json());
+
+// app.use(express.urlencoded({ extended: true }));
 
 // Database connection
 dbConnection()
