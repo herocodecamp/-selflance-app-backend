@@ -8,6 +8,7 @@ const blogRouter = require('./blog.routes');
 const jobResponseRouter = require('./jobresponse.routes')
 const sellerOfferRouter = require('../routes/sellerOffer.routers');
 const buyerOrderProcessRouter = require('../routes/BuyerOrderProcess.routers');
+const paymentRouter = require('../routes/payment.routes')
 
 //please use this file for imports routes only
 
@@ -19,6 +20,7 @@ appRouter.use('/user',jobPostRoutes)
 appRouter.use('/blog', blogRouter)
 appRouter.use('/sellerOffer', sellerOfferRouter)
 appRouter.use('/buyerOrderProcess', buyerOrderProcessRouter)
+appRouter.use('/payment', paymentRouter)
 appRouter.use('/jobresponse',jobResponseRouter)
 
 module.exports = appRouter;

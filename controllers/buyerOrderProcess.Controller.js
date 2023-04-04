@@ -1,6 +1,5 @@
 const BuyerOrderProcess = require("../models/BuyerOrderProcess");
 
-
 exports.buyerOrderProcessController = async (req, res) => {
   try {
     const newOrder = new BuyerOrderProcess(req.body);
@@ -10,3 +9,5 @@ exports.buyerOrderProcessController = async (req, res) => {
     res.status(500).json({ message: error.message, type: error.name });
   }
 };
+
+
