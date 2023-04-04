@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const BuyerOrderProcessSchema = new Schema(
   {
-    sellerAgreement: {
+    sellerCustomOffer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "sellerAgreement",
       required: [true, "seller agreement ref is required"],
@@ -14,9 +14,13 @@ const BuyerOrderProcessSchema = new Schema(
       required: [true, "buyer ref is required"],
     },
     payment_method: {
+      type: String,
+      default: "",
+      required: [true, "payment method is required"],
+    },
+    image: {
       type: Array,
       default: [],
-      required: [true, "payment method is required"],
     },
     isAgree: {
       type: Boolean,
