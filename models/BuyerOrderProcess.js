@@ -8,6 +8,10 @@ const BuyerOrderProcessSchema = new Schema(
       ref: "sellerAgreement",
       required: [true, "seller agreement ref is required"],
     },
+    payment: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Payment",
+    },
     buyer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
