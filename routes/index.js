@@ -23,6 +23,6 @@ appRouter.use('/sellerOffer', sellerOfferRouter)
 appRouter.use('/buyerOrderProcess', buyerOrderProcessRouter)
 appRouter.use('/payment', paymentRouter)
 appRouter.use('/jobresponse',jobResponseRouter)
-// appRouter.use('/user')
+appRouter.use('/cs',customsuppportRouter)
 
 module.exports = appRouter;

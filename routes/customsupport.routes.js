@@ -11,7 +11,7 @@ customsuppportRouter.post('/:userId',createQuery)
 
 customsuppportRouter.put('/:userId/:csId',updateQuery)
 
-customsuppportRouter.delete('/:userId/:csId',removeQuery)
+customsuppportRouter.delete('/:csId',removeQuery)
 
 
 

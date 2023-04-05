@@ -1,5 +1,5 @@
 const CustomSupport = require('../models/CustomSupportSchema');
-const { create } = require('../models/JobPostResponse');
+
 
 
 
@@ -20,7 +20,7 @@ const readQuery = async(req,res)=>{
 const createQuery = async(req,res)=>{
     try{
         req.body.userId = req.params.userId
-        const response = await create(req.body)
+        const response = await CustomSupport.create(req.body)
         res.status(200).json(response)
     }
     catch(error)
