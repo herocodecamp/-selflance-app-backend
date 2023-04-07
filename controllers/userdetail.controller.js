@@ -21,7 +21,7 @@ const readUserDetails = async(req,res)=>{
 const createUserDetails = async(req,res)=>{
     
     
-
+    console.log(req.body)
     if(req.body || req.file){ 
 
         
@@ -33,10 +33,14 @@ const createUserDetails = async(req,res)=>{
             //         contentType: "image/png"
             //     }
             // }
-            console.log(req.file.path);
-            req.body.profileImage =req.file.path
-            req.body.user = req.params.userId
+            // console.log(req.file.path);
+            if(req.file){req.body.profileImage =req.file.path}
             
+            req.body.userId = req.params.userId
+            req.body.education = JSON.parse(req.body.education)
+            req.body.skills = JSON.parse(req.body.skills)
+            req.body.experience = JSON.parse(req.body.experience)
+            req.body.certificates = JSON.parse(req.body.certificates)
 
             UserDetail.create(req.body).then((result)=>{
                 res.statusCode = 200;

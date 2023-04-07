@@ -6,36 +6,39 @@ const { Schema, ObjectId } = mongoose;
 const EducationSchema = new Schema ({
     degreeTitle: String,
     InstitutionName: String,
-    from: Number,
-    to: Number
+    from: String,
+    to: String
 });
 
 const ExperienceSchema = new Schema ({
     companyName: String,
-    yearsTotal: Number, 
-    from: Number,
-    to: Number
+    yearsTotal: String, 
+    from: String,
+    to: String
 });
 
 const SkillsSchema = new Schema({
-        skillName: String
+        skillName: String,
+        expLevel: String,
 });
 
 const CertificateSchema = new Schema ({
     certificateTitle: String,
     institutionName: String, 
-    year: Number
+    year: String,
 });
 
 
 var UserDetailSchema = new Schema({
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     firstname: String,
     lastname: String,
     location: String,
+    jobDescription: String,
+    occupation: String,
     about: String,
     rating: String,
     profileImage: String,
@@ -44,7 +47,7 @@ var UserDetailSchema = new Schema({
     //     contenType: String
     // },
     
-    educatoion: [EducationSchema],
+    education: [EducationSchema],
     // videoIntro: [],
     hourlyRate: String,
     skills: [SkillsSchema],

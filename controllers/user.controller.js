@@ -103,6 +103,7 @@ const sendOTPVerificationEmail = async (
 ) => {
   try {
     const otp = `${Math.floor(100000 + Math.random() * 9000)}`;
+    // console.log('otp',otp)
     const mailOptions = {
       from: "lulu1@ethereal.email",
       to: email,
