@@ -3,6 +3,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const paypal = require("paypal-rest-sdk");
 const Razorpay = require("razorpay");
 
+
 exports.stripePaymentController = async (req, res) => {
   const { price, source, currency } = req.body;
 
@@ -29,6 +30,8 @@ exports.stripePaymentController = async (req, res) => {
     });
   }
 };
+
+// paypal
 
 paypal.configure({
   mode: "sandbox",
@@ -73,8 +76,8 @@ exports.papalPaymentController = async (req, res) => {
   }
 };
 
-// razorpay
 
+// razorpay
 const razorpay = new Razorpay({
   key_id: "YOUR_KEY_ID",
   key_secret: "YOUR_KEY_SECRET",
