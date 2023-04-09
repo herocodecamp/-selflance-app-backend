@@ -1,4 +1,5 @@
 const BuyerOrderProcess = require("../models/BuyerOrderProcess");
+const SellerOffer = require("../models/SellerOffer");
 
 exports.buyerOrderProcessController = async (req, res) => {
   try {
@@ -10,4 +11,11 @@ exports.buyerOrderProcessController = async (req, res) => {
   }
 };
 
-
+exports.GetSellerOfferData = async (req, res) => {
+  try {
+    const findOffer = await SellerOffer.findById(req.body.id);
+    res.status(200).json(findOffer);
+  } catch (error) {
+    res.status(500).json({ message: error.message, type: error.name });
+  }
+};
