@@ -15,6 +15,7 @@ const readGig =async(req,res)=>{
 
 
 const createGig =async(req,res)=>{
+    
     try{
             var images = []
             if(req.files.length>0)
@@ -27,31 +28,46 @@ const createGig =async(req,res)=>{
             req.body.userId = req.params.userId
             
             
+            
             req.body.gigImages = images;
 
-            // START: Below are some methods to make the Schema work with postman...during client data we may remove them as we will be getting the required data
-            const packagesArr =[]
-            req.body.packages.forEach(el=>{
-                packagesArr.push(JSON.parse(el))
-            })
+            // START:(Req from the postman) Below are some methods to make the Schema work with postman...during client data we may remove them as we will be getting the required data
+            // const packagesArr =[]
+            // req.body.packages.forEach(el=>{
+            //     packagesArr.push(JSON.parse(el))
+            // })
             
-            req.body.packages = packagesArr
+            // req.body.packages = packagesArr
 
-            const gigFAQarr=[]
-            req.body.gigFAQ.forEach(el=>{
-                gigFAQarr.push(JSON.parse(el))
-            })
-            req.body.gigFAQ = gigFAQarr
+            // const gigFAQarr=[]
+            // req.body.gigFAQ.forEach(el=>{
+            //     gigFAQarr.push(JSON.parse(el))
+            // })
+            // req.body.gigFAQ = gigFAQarr
 
-            const gigReq = []
-            req.body.gigRequirement.forEach(el=>{
-                gigReq.push(JSON.parse(el))
-            })
-            req.body.gigRequirement = gigReq
+            // const gigReq = []
+            // req.body.gigRequirement.forEach(el=>{
+            //     gigReq.push(JSON.parse(el))
+            // })
+            // req.body.gigRequirement = gigReq
 
             // END...You may remove this till there
 
-            // console.log(req.body)
+            // Req from the client Side
+            // req.body.tags && (req.body.tags = JSON.parse(req.body.tags))
+            // req.body.packages && (req.body.packages = JSON.parse(req.body.packages))
+            // req.body.gigFAQ && (req.body.gigFAQ = JSON.parse(req.body.gigFAQ))
+            // req.body.videos && (req.body.videos = JSON.parse(req.body.videos))
+            // req.body.gigRequirement && (req.body.gigRequirement = JSON.parse(req.body.gigRequirement))
+            req.body.tags = req.body.tags ? JSON.parse(req.body.tags) : []
+            req.body.packages = req.body.packages ? JSON.parse(req.body.packages) : []
+            req.body.gigFAQ = req.body.gigFAQ ? JSON.parse(req.body.gigFAQ) : []
+            req.body.videos = req.body.videos ? JSON.parse(req.body.videos) :[]
+            req.body.gigRequirement = req.body.gigRequirement ? JSON.parse(req.body.gigRequirement) :[]
+            req.body.title = req.body.title ? req.body.title : ''
+            req.body.category = req.body.category ? req.body.category : ''
+            req.body.subCategory = req.body.subCategory ? req.body.subCategory : ''
+            req.body.serviceDescription = req.body.serviceDescription ? req.body.serviceDescription : ''
 
             const newGig = await Gig.create(req.body)
 

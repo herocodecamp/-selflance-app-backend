@@ -11,11 +11,10 @@ const tagSchema = ({
   //   },
   //   message: (props) => `${props.value} exceeds maximum array size (5)!`,
   // },
-  required: true,
+ 
 });
 
 const packagesSchema = new Schema({
-//   _id: ObjectId,
   packageName: String,
   price: String,
   prototype: Boolean,
@@ -26,31 +25,35 @@ const packagesSchema = new Schema({
   deliveryDuration: String,
 });
 
-const gigCommentsSchema = new Schema({
-//   _id: ObjectId,
-  buyerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Buyer",
-  },
-  comment: String,
-  date: Date,
-  rating: String,
-});
+// const gigCommentsSchema = new Schema({
+// //   _id: ObjectId,
+//   buyerId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "Buyer",
+//   },
+//   comment: String,
+//   date: Date,
+//   rating: String,
+// });
 
-const gigFAQSchema = new Schema({ que: String, ans: String });
+const gigFAQSchema = new Schema(
+  { que: String,
+    ans: String, }
+  );
 
 const imagesSchema = new Schema({
-//   _id: ObjectId,
   url: String,
 });
 
 const videosSchema = new Schema({
-//   _id: ObjectId,
   url: String,
 });
 
 
-const gigRequirementSchema = new Schema({ que: String, ans: String })
+const gigRequirementSchema = new Schema(
+  { que: String,
+    ans: String, }
+  )
 
 
 

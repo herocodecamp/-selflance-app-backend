@@ -30,7 +30,7 @@ const CertificateSchema = new Schema ({
 
 
 var UserDetailSchema = new Schema({
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
