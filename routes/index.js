@@ -17,7 +17,7 @@ const paymentRouter = require('../routes/payment.routes')
 appRouter.use('/user',userRoutes)
 appRouter.use('/gig',gigRoutes)
 appRouter.use('/user/userDetails',userDetailRoutes);
-appRouter.use('/user',jobPostRoutes)
+appRouter.use('/jobpost',jobPostRoutes)
 appRouter.use('/blog', blogRouter)
 appRouter.use('/sellerOffer', sellerOfferRouter)
 appRouter.use('/buyerOrderProcess', buyerOrderProcessRouter)

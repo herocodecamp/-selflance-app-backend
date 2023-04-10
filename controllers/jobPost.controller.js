@@ -16,8 +16,16 @@ const readJobPost= async(req,res)=>{
 const createJobPost = async(req,res)=>{
 
     req.body.user = req.params.userId
-  
+    // console.log(req.files)
     try{
+        var jobDocs = []
+            if(req.files.length>0)
+            {
+                req.files.forEach(el => {
+                    jobDocs.push({url: `${el.path}`})
+                });
+            }
+        req.body.jobFiles = jobDocs;
         
         const result = await JobPost.create(req.body)
         res.status(200).json(result)
