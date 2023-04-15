@@ -6,7 +6,7 @@ exports.SellerCustomOffer = async (req, res) => {
   const user = await Users.findById(id);
 
   try {
-    if (user._id.toString() === req.body.seller) {
+    if (user._id.toString() === req.params.id) {
       const NewAgreement = new SellerOffers(req.body);
       await NewAgreement.save();
       res.status(200).json({ message: " successfully insert an agreement " });
@@ -17,6 +17,7 @@ exports.SellerCustomOffer = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: error.message, type: error.name });
+    console.log("here was an error: ", error.message)
   }
 };
 

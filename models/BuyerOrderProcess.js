@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const BuyerOrderProcessSchema = new Schema(
   {
-    sellerCustomOffer: {
+    offerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "sellerAgreement",
       required: [true, "seller agreement ref is required"],
@@ -15,7 +15,6 @@ const BuyerOrderProcessSchema = new Schema(
     buyer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: [true, "buyer ref is required"],
     },
     payment_method: {
       type: String,

@@ -4,6 +4,6 @@ const { buyerOrderProcessController, GetSellerOfferData } = require("../controll
 const Router = express.Router();
 
 Router.post("/:id", buyerOrderProcessController);
-Router.get("/sellerOffer", GetSellerOfferData);
+Router.get("/sellerOffer/:id", GetSellerOfferData);
 
 module.exports = Router;

@@ -1,23 +1,29 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const SellerOfferSchema  = new Schema(
+const SellerOfferSchema = new Schema(
   {
     // _id: default object id
+    offerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: function() {
+        return this._id;
+      }
+    },
     service: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "service",
-      required: [true, "service ref is required"],
+      // required: [true, "service ref is required"],
     },
-    seller: {
+    sellerID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: [true, "seller ref is required"],
+      // required: [true, "seller ref is required"],
     },
-    buyer: {
-      type: mongoose.Schema.Types.ObjectId,
+    buyerID: {
+      type: Schema.Types.ObjectId,
       ref: "User",
-      required: [true, "buyer ref is required"],
+      // required: [true, "buyer ref is required"],
     },
 
     description: {
@@ -26,28 +32,28 @@ const SellerOfferSchema  = new Schema(
       maxlength: 5000,
       default: "",
     },
-    total_price: {
+    price: {
       type: Number,
       required: [true, "enter the price"],
       min: 1,
     },
 
     revision: {
-      type: Number,
+      type: String,
       required: true,
     },
     delivery_time: {
-      type: Number,
+      type: String,
       required: true,
     },
-    additional_option: String,
+    additional: String,
 
     isAgree: {
       type: Boolean,
       required: [true, "turn on the agree button"],
       default: false,
     },
-    expiry_time: Number,
+    expiry: String,
   },
 
   { timestamps: true }
