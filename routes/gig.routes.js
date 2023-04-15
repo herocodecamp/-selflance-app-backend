@@ -1,13 +1,13 @@
 const express = require('express');
-const { readGig,createGig,updateGig,deleteGig} = require('../controllers/gig.controller');
+const { readGig,createGig,updateGig,deleteGig, allUserGigs} = require('../controllers/gig.controller');
 const upload = require('../middleware/multerStorage')
 
 
 const gigRoutes = express.Router();
 
 
-
-gigRoutes.get('/:gigId',readGig)
+gigRoutes.get('/:userId', allUserGigs);
+gigRoutes.get('/gigs/:gigId',readGig)
 
 
 gigRoutes.post('/:userId/create',upload.array('gigImage', 5),createGig)

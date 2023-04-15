@@ -2,6 +2,7 @@ const UserDetail = require('../models/UserDetails');
 
 
 const readUserDetails = async(req,res)=>{
+    
     try{
         UserDetail.findOne({user: req.params.userId}).then((result)=>{
             // later replace user:req.user._id 
@@ -26,7 +27,7 @@ const createUserDetails = async(req,res)=>{
         if(result === null)
     {
         
-        if(req.body || req.file){ 
+        if(req.body || req.file){
     
            console.log("file is: ", req.file) 
             try{

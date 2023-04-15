@@ -16,6 +16,7 @@ const tagSchema = ({
 
 const packagesSchema = new Schema({
   packageName: String,
+  summary: String,
   price: String,
   prototype: Boolean,
   sourceFile: Boolean,

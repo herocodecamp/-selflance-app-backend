@@ -12,6 +12,17 @@ const readJobPost= async(req,res)=>{
     }
 };
 
+const readAllJobPost= async(req,res)=>{
+    try{
+        const jobPosts = await JobPost.find({user: req.params.userId})
+        res.status(200).json(jobPosts)
+    }
+    catch(error)
+    {
+        res.status(500).json({ message: error.message, type: error.name });
+    }
+};
+
 
 const createJobPost = async(req,res)=>{
 
@@ -68,5 +79,5 @@ const deleteJobPost = async(req,res)=>{
 };
 
 
-module.exports = {readJobPost,createJobPost,updateJobPost,deleteJobPost}
+module.exports = {readJobPost,createJobPost,updateJobPost,deleteJobPost,readAllJobPost}
 
