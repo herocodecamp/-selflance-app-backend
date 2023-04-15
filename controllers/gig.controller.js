@@ -18,7 +18,7 @@ const createGig =async(req,res)=>{
     
     try{
             var images = []
-            if(req.files.length>0)
+            if(req?.files.length>0)
             {
                 req.files.forEach(el => {
                     images.push({url: `${el.path}`})
@@ -76,6 +76,7 @@ const createGig =async(req,res)=>{
     catch(error)
     {
         res.status(500).json({ message: error.massage, type: error.name }); 
+        console.log("error", error)
     }
 };
 
