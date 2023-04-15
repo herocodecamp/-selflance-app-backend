@@ -3,6 +3,7 @@ const Gig = require("../models/Gig");
 
 
 const readGig =async(req,res)=>{
+
     try{
             const gigData = await Gig.findById({_id: req.params.gigId})
             res.status(200).json(gigData)
@@ -13,9 +14,21 @@ const readGig =async(req,res)=>{
     }
 };
 
+const allUserGigs= async(req,res)=>{
+    
+    try{
+        const allGigs = await Gig.find({userId: req.params.userId})
+        res.status(200).json(allGigs)
+    }
+    catch(err)
+    {
+        res.status(500).json({ message: error.massage, type: error.name }); 
+    }
+}
 
 const createGig =async(req,res)=>{
-    
+
+    console.log(req.body)
     try{
             var images = []
             if(req?.files.length>0)
@@ -153,5 +166,5 @@ const deleteGig =async(req,res)=>{
 };
 
 
-module.exports = {readGig,createGig,updateGig,deleteGig}
+module.exports = {readGig,createGig,updateGig,deleteGig , allUserGigs}
 
