@@ -20,7 +20,7 @@ const allUserGigs= async(req,res)=>{
         const allGigs = await Gig.find({userId: req.params.userId})
         res.status(200).json(allGigs)
     }
-    catch(err)
+    catch(error)
     {
         res.status(500).json({ message: error.massage, type: error.name }); 
     }

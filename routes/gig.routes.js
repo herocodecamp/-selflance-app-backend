@@ -5,9 +5,9 @@ const upload = require('../middleware/multerStorage')
 
 const gigRoutes = express.Router();
 
-
 gigRoutes.get('/:userId', allUserGigs);
 gigRoutes.get('/gigs/:gigId',readGig)
+
 
 
 gigRoutes.post('/:userId/create',upload.array('gigImage', 5),createGig)
