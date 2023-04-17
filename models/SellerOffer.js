@@ -10,11 +10,6 @@ const SellerOfferSchema = new Schema(
         return this._id;
       }
     },
-    service: {
-      type: Schema.Types.ObjectId,
-      ref: "service",
-      // required: [true, "service ref is required"],
-    },
     sellerID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

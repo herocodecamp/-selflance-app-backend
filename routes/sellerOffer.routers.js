@@ -1,8 +1,9 @@
 const express = require("express");
-const { SellerCustomOffer } = require("../controllers/sellerCustomOfferController");
+const { SellerCustomOffer, getSellerOfferController } = require("../controllers/sellerCustomOfferController");
 
 const Router = express.Router();
 
 Router.post('/:id', SellerCustomOffer);
+Router.get('/:id', getSellerOfferController)
 
 module.exports = Router;
