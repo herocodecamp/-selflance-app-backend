@@ -12,7 +12,7 @@ const readJobPost= async(req,res)=>{
     }
 };
 
-const readAllJobPost= async(req,res)=>{
+const readAllUserJobPost= async(req,res)=>{
     try{
         const jobPosts = await JobPost.find({user: req.params.userId})
         res.status(200).json(jobPosts)
@@ -24,9 +24,32 @@ const readAllJobPost= async(req,res)=>{
 };
 
 
+const readAllJobs = async(req,res)=>{
+    try{
+        const jobs = await JobPost.find({}).limit(5);
+
+        const totalJobs = await JobPost.find({}).countDocuments()
+
+        const resp = {
+            jobs: jobs,
+            total: totalJobs
+        }
+
+        res.status(200).json(resp)
+
+    }
+    catch(err)
+    {
+        res.status(500).json({ message: error.message, type: error.name });
+
+    }
+}
+
+
 const createJobPost = async(req,res)=>{
 
     req.body.user = req.params.userId
+    
     // console.log(req.files)
     try{
         var jobDocs = []
@@ -79,5 +102,5 @@ const deleteJobPost = async(req,res)=>{
 };
 
 
-module.exports = {readJobPost,createJobPost,updateJobPost,deleteJobPost,readAllJobPost}
+module.exports = {readJobPost,createJobPost,updateJobPost,deleteJobPost,readAllUserJobPost, readAllJobs}
 

@@ -1,12 +1,14 @@
 const express = require('express');
-const {readJobPost,createJobPost,deleteJobPost,updateJobPost, readAllJobPost} = require('../controllers/jobPost.controller')
+const {readJobPost,createJobPost,deleteJobPost,updateJobPost, readAllUserJobPost, readAllJobs} = require('../controllers/jobPost.controller')
 const upload = require('../middleware/multerStorage')
 
 
 
 const jobPostRoutes = express.Router();
 
-jobPostRoutes.get('/:userId/jobposts',readAllJobPost)
+jobPostRoutes.get('/all',readAllJobs)
+
+jobPostRoutes.get('/:userId/jobposts',readAllUserJobPost)
 
 jobPostRoutes.get('/:userId/jobpost/:jobPostId',readJobPost)
 

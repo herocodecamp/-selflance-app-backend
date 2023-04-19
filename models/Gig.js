@@ -63,6 +63,10 @@ const GigSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  userDetail:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "UserDetail",
+  },
   title: String,
   category: String,
   subCategory: String,
@@ -75,6 +79,9 @@ const GigSchema = new Schema({
   gigImages: [imagesSchema],
   videos: [videosSchema],
 });
+
+
+
 
 const Gig = mongoose.model("Gig", GigSchema);
 

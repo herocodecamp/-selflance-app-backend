@@ -11,6 +11,7 @@ const sellerOfferRouter = require('../routes/sellerOffer.routers');
 const buyerOrderProcessRouter = require('../routes/BuyerOrderProcess.routers');
 const paymentRouter = require('../routes/payment.routes')
 const buyerSearchRouter = require('../routes/buyer.search.routes')
+const sellerSearchRouter = require('../routes/seller.search.routes')
 //please use this file for imports routes only
 
 // example routes
@@ -25,5 +26,6 @@ appRouter.use('/payment', paymentRouter)
 appRouter.use('/jobresponse',jobResponseRouter)
 appRouter.use('/cs',customsuppportRouter)
 appRouter.use('/searchGigs',buyerSearchRouter)
+appRouter.use('/searchJobPosts',sellerSearchRouter)
 
 module.exports = appRouter;

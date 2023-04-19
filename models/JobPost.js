@@ -3,14 +3,36 @@ const { Schema, ObjectId } = mongoose;
 
 
 
-const budgetSchema = new Schema({
+const projectbudgetSchema = new Schema({
     budgetType: String,
-    budgetrate: Number
-})
+    budgetRate: Number
+});
+
+const hourlybudgetSchema = new Schema({
+    budgetType: String,
+    hourlyFrom: Number,
+    hourlyTo: Number,
+});
 
 const docSchema = new Schema({
     url: String,
   });
+
+const sellerResponseSchema = new Schema({
+    sellerDetail: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserDetail'
+    },
+    bidtype: String,
+    bidPrice: String,
+    bidDuration: String,
+    startTime: String,
+    startDate: String,
+    coverLetter: String,
+    files:[docSchema]
+})
+
+
 
 var JobPostSchema = new Schema({
     
@@ -19,20 +41,22 @@ var JobPostSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    userDetail:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserDetail'
+    },
     title: String,
     category: String,
     duration: String,
     experience: String,
     language: String,
-    // payment_method: String,
+    paymentMethod: String,
     description: String,
     jobFiles:[docSchema],
-    // budget:[budgetSchema],
-    // isSecurity_payment: Boolean,
+    projectBudget:[projectbudgetSchema],
+    hourlyBudget:[hourlybudgetSchema],
     terms: Boolean,
-    hourlyFrom: Number,
-    hourlyTo: Number,
-    // jobStatus: String,
+    sellerResponses:[sellerResponseSchema]
 
 },
 {

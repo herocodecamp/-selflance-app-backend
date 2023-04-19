@@ -32,7 +32,10 @@ const getSearchandFilter = async(req,res)=>{
 
         const gigDataFilter = await Gig.find({category: { $regex: search, $options: "i" }}).where("subCategory")
         .in([...subCategory]).skip(page * limit)
-        .limit(limit);
+        .limit(limit).populate({
+            path: 'userDetail',
+            select: 'firstname lastname profileImage'
+        })
 
 
         const total= await Gig.countDocuments({
