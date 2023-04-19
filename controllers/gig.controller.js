@@ -20,7 +20,7 @@ const allUserGigs= async(req,res)=>{
         const allGigs = await Gig.find({userId: req.params.userId})
         res.status(200).json(allGigs)
     }
-    catch(err)
+    catch(error)
     {
         res.status(500).json({ message: error.massage, type: error.name }); 
     }
@@ -31,7 +31,7 @@ const createGig =async(req,res)=>{
     console.log(req.body)
     try{
             var images = []
-            if(req.files.length>0)
+            if(req?.files.length>0)
             {
                 req.files.forEach(el => {
                     images.push({url: `${el.path}`})
@@ -89,6 +89,7 @@ const createGig =async(req,res)=>{
     catch(error)
     {
         res.status(500).json({ message: error.massage, type: error.name }); 
+        console.log("error", error)
     }
 };
 

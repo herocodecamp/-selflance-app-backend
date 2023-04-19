@@ -8,6 +8,7 @@ const readUserDetails = async(req,res)=>{
             // later replace user:req.user._id 
             // if(err) { res.status(500).json({ message: err.message, type: err.name });}
             res.statusCode = 200;
+            console.log(result)
             res.json(result)
         })
     }

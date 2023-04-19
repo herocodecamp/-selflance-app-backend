@@ -3,31 +3,36 @@ const { Schema } = mongoose;
 
 const BuyerOrderProcessSchema = new Schema(
   {
-    offerId: {
+    gigId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "sellerAgreement",
-      required: [true, "seller agreement ref is required"],
+      ref: "Gig",
     },
-    payment: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Payment",
-    },
-    buyer: {
+    buyerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
     payment_method: {
       type: String,
       default: "",
-      required: [true, "payment method is required"],
     },
     image: {
       type: Array,
       default: [],
     },
+    // cardNumber: Number,
+    // date: Number,
+    // firstName: String,
+    // LastName: String,
+    // deliveryDuration: String,
+    // packageName: String,
+    // pages: String,
+    // price: String,
+    // revisions: String,
+    // sourceFile: Boolean,
+    // summary: String,
+
     isAgree: {
       type: Boolean,
-      required: [true, "turn on the agree button"],
       default: false,
     },
   },
