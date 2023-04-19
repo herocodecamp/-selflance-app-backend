@@ -1,24 +1,24 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const PaymentSchema = new Schema(
+const WithdrawSchema = new Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-    //   required: true,
+      required: true,
     },
-    Payment_method: {
+    payment_method: {
       type: String,
       default: "",
-    //   required: true,
+      required: true,
     },
-    amount: {
+    withdraw_amount: {
       type: Number,
-    //   required: true,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Payment", PaymentSchema);
+module.exports = mongoose.model("Withdraw", WithdrawSchema);
