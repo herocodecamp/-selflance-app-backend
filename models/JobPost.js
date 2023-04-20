@@ -23,7 +23,7 @@ const sellerResponseSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserDetail'
     },
-    bidtype: String,
+    bidType: String,
     bidPrice: String,
     bidDuration: String,
     startTime: String,

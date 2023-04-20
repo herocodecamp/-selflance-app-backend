@@ -78,7 +78,7 @@ try{
     .skip(page * limit)
     .limit(limit).populate({
         path: 'userDetail',
-        select: 'firstname lastname profileImage'
+        select: 'firstname lastname profileImage occupation rating'
     })
 
 

@@ -1,6 +1,6 @@
 const JobPostResponse = require('../models/JobPostResponse');
 const User = require('../models/User')
-
+const JobPost = require('../models/JobPost')
 // to get the jobresponse we have two categories
 // 1- when the seller is getting a job response we need to load only one job response/jobpost
 // 2- when the buyer is getting a job response we need to load all of the job responses on the jobposts posted by the buyer
@@ -31,30 +31,60 @@ const getJobResponse=async(req,res)=>{
 
 
 // only Seller will create the response
+
 const createJobResponse=async(req,res)=>{
     try{
-        const userCurrent = await User.findById({_id: req.params.userId});
+        // const userCurrent = await User.findById({_id: req.params.userId});
 
-        const isApplied = await JobPostResponse.find({jobId: req.params.jobPostId, user: userCurrent._id})
+        const jobData = await JobPost.find({_id: req.params.jobPostId})
+    
+        var jobDocs = []
+            if(req.files.length>0)
+            {
+                req.files.forEach(el => {
+                    jobDocs.push({url: `${el.path}`})
+                });
+            }
+        req.body.files = jobDocs;
+
+
+        jobData[0].sellerResponses.length>0 ? (
+        
+            jobData[0].sellerResponses.map((item)=>{
+            item.sellerDetail === req.params.userdetailId && res.status(403).json({message: "You have already applied for that job. "}) 
+        })
+        )
+        
+        : (
+            req.body.sellerDetail = req.params.userdetailId
+            )
+        
+          
+
+        jobData[0].sellerResponses.push(req.body)
 
         
-        if (isApplied.length > 0) {
-            res.status(403).json({message: "You have already applied for that job. "})
-        }
-        else {
+        const response = await jobData[0].save()
 
-            if(userCurrent.isSeller) {
-                req.body.user = req.params.userId;
-                req.body.jobId = req.params.jobPostId;
+        res.status(200).json(response)
+        
+        // if (isApplied.sellerResponses.includes()) {
+        //     res.status(403).json({message: "You have already applied for that job. "})
+        // }
+        // else {
+
+        //     if(userCurrent.isSeller) {
+        //         req.body.user = req.params.userId;
+        //         req.body.jobId = req.params.jobPostId;
     
-                const jobResponse = await JobPostResponse.create(req.body);
+        //         const jobResponse = await JobPostResponse.create(req.body);
     
-                res.status(200).json(jobResponse)
-            }
-            else {
-                res.status(403).json({message: "You are not authorized to perform this action. Only Seller can respond to a posted job"})
-            }
-        }
+        //         res.status(200).json(jobResponse)
+        //     }
+        //     else {
+        //         res.status(403).json({message: "You are not authorized to perform this action. Only Seller can respond to a posted job"})
+        //     }
+        // }
         
     }
     catch(error)
