@@ -14,7 +14,7 @@ const readJobPost= async(req,res)=>{
 
 const readAllUserJobPost= async(req,res)=>{
     try{
-        const jobPosts = await JobPost.find({user: req.params.userId})
+        const jobPosts = await JobPost.find({user: req.params.userId}).populate('sellerResponses.sellerDetail')
         res.status(200).json(jobPosts)
     }
     catch(error)

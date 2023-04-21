@@ -30,6 +30,9 @@ const sellerResponseSchema = new Schema({
     startDate: String,
     coverLetter: String,
     files:[docSchema]
+},
+{
+    timestamps: true
 })
 
 
