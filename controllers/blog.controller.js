@@ -8,7 +8,6 @@ exports.blogController = async (req, res) => {
     res.status(200).json({ message: "successfully create a blog" });
   } catch (error) {
     res.status(500).json({ massage: error.massage, type: error.name });
-    console.log(error);
   }
 };
 
